@@ -1,13 +1,14 @@
 include(ExternalProject)
 
-SET(BOOST_ARCHIVE "boost_1_72_0.tar.gz")
+string(REPLACE "." "_" VERSION ${BOOST_RELEASE})
+SET(BOOST_ARCHIVE "boost_${VERSION}.tar.gz")
 message(STATUS "${BOOST_ARCHIVE}")
 
 if (EXISTS "${CMAKE_CURRENT_LIST_DIR}/${BOOST_ARCHIVE}")
     set(BOOST_URL "file://${CMAKE_CURRENT_LIST_DIR}/${BOOST_ARCHIVE}")
 else()
     string(REGEX MATCH "boost_([0-9]+)_([0-9]+)_([0-9]).tar.gz" _ ${BOOST_ARCHIVE})
-    set(BOOST_URL "https://dl.bintray.com/boostorg/release/${CMAKE_MATCH_1}.${CMAKE_MATCH_2}.${CMAKE_MATCH_3}/source/${BOOST_ARCHIVE}")
+    set(BOOST_URL "https://boostorg.jfrog.io/artifactory/main/release/${CMAKE_MATCH_1}.${CMAKE_MATCH_2}.${CMAKE_MATCH_3}/source/${BOOST_ARCHIVE}")
 endif()
 message(STATUS "Using boost url: ${BOOST_URL}")
 
